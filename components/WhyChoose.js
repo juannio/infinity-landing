@@ -1,34 +1,37 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, Zap, Lock, Users } from 'lucide-react';
-
-const features = [
-    {
-        title: 'Lightning Fast',
-        description: 'Optimized for speed and performance across all devices.',
-        icon: <Zap className="w-6 h-6 text-yellow-400" />
-    },
-    {
-        title: 'Bank-Grade Security',
-        description: 'Advanced encryption and security protocols to keep data safe.',
-        icon: <Lock className="w-6 h-6 text-cyan-400" />
-    },
-    {
-        title: 'Expert Team',
-        description: 'Built by industry veterans with decades of combined experience.',
-        icon: <Users className="w-6 h-6 text-purple-400" />
-    }
-];
-
-const stats = [
-    { label: 'Projects Delivered', value: '500+' },
-    { label: 'Client Satisfaction', value: '99%' },
-    { label: 'Uptime Guarantee', value: '99.9%' },
-    { label: 'Global Partners', value: '40+' }
-];
+import { Zap, Lock, Users } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function WhyChoose() {
+    const { t } = useLanguage();
+
+    const features = [
+        {
+            title: t('whyChoose.features.0.title'),
+            description: t('whyChoose.features.0.description'),
+            icon: <Zap className="w-6 h-6 text-yellow-400" />
+        },
+        {
+            title: t('whyChoose.features.1.title'),
+            description: t('whyChoose.features.1.description'),
+            icon: <Lock className="w-6 h-6 text-cyan-400" />
+        },
+        {
+            title: t('whyChoose.features.2.title'),
+            description: t('whyChoose.features.2.description'),
+            icon: <Users className="w-6 h-6 text-purple-400" />
+        }
+    ];
+
+    const stats = [
+        { label: t('whyChoose.stats.projects'), value: '500+' },
+        { label: t('whyChoose.stats.satisfaction'), value: '99%' },
+        { label: t('whyChoose.stats.uptime'), value: '99.9%' },
+        { label: t('whyChoose.stats.partners'), value: '40+' }
+    ];
+
     return (
         <section id="why-us" className="py-24 bg-[#05051a] relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -40,15 +43,12 @@ export default function WhyChoose() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-cyan-400 font-medium tracking-widest uppercase mb-3">Why Choose Infinity</h2>
-                        <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-outfit leading-tight">
-                            We Don't Just Build Software. <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                                We Engineer Future.
-                            </span>
+                        <h2 className="text-cyan-400 font-medium tracking-widest uppercase mb-3">{t('whyChoose.heading')}</h2>
+                        <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-outfit leading-tight whitespace-pre-line">
+                            {t('whyChoose.title')}
                         </h3>
                         <p className="text-gray-400 mb-8 leading-relaxed">
-                            In a world of finite resources, your potential should be infinite. We provide the technical foundation that allows your business to scale without limits.
+                            {t('whyChoose.description')}
                         </p>
 
                         <div className="space-y-6">

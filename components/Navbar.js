@@ -2,8 +2,11 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
+    const { t, language, toggleLanguage } = useLanguage();
+
     return (
         <motion.nav
             initial={{ opacity: 0, y: -20 }}
@@ -13,13 +16,22 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto flex justify-between items-center">
                 <Link href="/" className="text-xl font-bold tracking-tighter font-outfit">
-                    INFINITY
+                    {t('hero.title')}
                 </Link>
 
-                <div className="hidden md:flex gap-8 text-sm font-mono">
-                    <Link href="#services" className="hover:text-gray-300 transition-colors">WORK</Link>
-                    <Link href="#about" className="hover:text-gray-300 transition-colors">AGENCY</Link>
-                    <Link href="#contact" className="hover:text-gray-300 transition-colors">CONTACT</Link>
+                <div className="flex items-center gap-8 text-sm font-mono">
+                    <div className="hidden md:flex gap-8">
+                        <Link href="#services" className="hover:text-gray-300 transition-colors">{t('nav.work')}</Link>
+                        <Link href="#why-us" className="hover:text-gray-300 transition-colors">{t('nav.agency')}</Link>
+                        <Link href="#contact" className="hover:text-gray-300 transition-colors">{t('nav.contact')}</Link>
+                    </div>
+
+                    <button
+                        onClick={toggleLanguage}
+                        className="px-3 py-1 border border-white/30 rounded-full hover:bg-white hover:text-black transition-all"
+                    >
+                        {language === 'en' ? 'ES' : 'EN'}
+                    </button>
                 </div>
             </div>
         </motion.nav>

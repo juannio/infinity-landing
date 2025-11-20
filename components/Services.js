@@ -2,49 +2,51 @@
 
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-
-const services = [
-    {
-        id: '01',
-        title: 'Web Applications',
-        description: 'Next-gen interfaces built for scale.',
-        colSpan: 'md:col-span-2',
-        bg: 'bg-gradient-to-br from-neutral-900 to-neutral-950'
-    },
-    {
-        id: '02',
-        title: 'Mobile',
-        description: 'Native performance, universal reach.',
-        colSpan: 'md:col-span-1',
-        bg: 'bg-neutral-900'
-    },
-    {
-        id: '03',
-        title: 'Cloud Arch',
-        description: 'Serverless, scalable, secure.',
-        colSpan: 'md:col-span-1',
-        bg: 'bg-neutral-900'
-    },
-    {
-        id: '04',
-        title: 'AI Integration',
-        description: 'Intelligence woven into every interaction.',
-        colSpan: 'md:col-span-2',
-        bg: 'bg-gradient-to-bl from-neutral-900 to-neutral-950'
-    }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Services() {
+    const { t } = useLanguage();
+
+    const services = [
+        {
+            id: '01',
+            title: t('services.items.0.title'),
+            description: t('services.items.0.description'),
+            colSpan: 'md:col-span-2',
+            bg: 'bg-gradient-to-br from-neutral-900 to-neutral-950'
+        },
+        {
+            id: '02',
+            title: t('services.items.1.title'),
+            description: t('services.items.1.description'),
+            colSpan: 'md:col-span-1',
+            bg: 'bg-neutral-900'
+        },
+        {
+            id: '03',
+            title: t('services.items.2.title'),
+            description: t('services.items.2.description'),
+            colSpan: 'md:col-span-1',
+            bg: 'bg-neutral-900'
+        },
+        {
+            id: '04',
+            title: t('services.items.3.title'),
+            description: t('services.items.3.description'),
+            colSpan: 'md:col-span-2',
+            bg: 'bg-gradient-to-bl from-neutral-900 to-neutral-950'
+        }
+    ];
+
     return (
         <section id="services" className="py-32 bg-black text-white relative z-10">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-white/10 pb-8">
-                    <h2 className="text-6xl md:text-8xl font-bold tracking-tighter font-outfit">
-                        OUR<br />CRAFT
+                    <h2 className="text-6xl md:text-8xl font-bold tracking-tighter font-outfit whitespace-pre-line">
+                        {t('services.heading')}
                     </h2>
-                    <p className="text-gray-400 max-w-md text-right mt-8 md:mt-0 font-mono text-sm">
-            // WE BUILD DIGITAL INFRASTRUCTURE<br />
-            // FOR THE NEXT CENTURY
+                    <p className="text-gray-400 max-w-md text-right mt-8 md:mt-0 font-mono text-sm whitespace-pre-line">
+                        {t('services.subheading')}
                     </p>
                 </div>
 

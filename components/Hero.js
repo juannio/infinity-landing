@@ -5,6 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom, Noise } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 // Vertex Shader
 const vertexShader = `
@@ -109,6 +110,7 @@ function FlowField() {
 }
 
 export default function Hero() {
+    const { t } = useLanguage();
     return (
         <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
             {/* 3D Background */}
@@ -130,15 +132,15 @@ export default function Hero() {
                     transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
                 >
                     <h1 className="text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-2 font-outfit select-none">
-                        INFINITY
+                        {t('hero.title')}
                     </h1>
                     <div className="flex flex-col md:flex-row items-center justify-between w-full border-t border-white/20 pt-6 mt-6">
                         <p className="text-sm md:text-base text-gray-400 max-w-xs text-left font-mono">
-                            [SYSTEM_STATUS: OPTIMIZED]<br />
-                            ENGINEERING THE UNKNOWN
+                            {t('hero.systemStatus')}<br />
+                            {t('hero.tagline')}
                         </p>
                         <p className="text-sm md:text-base text-white font-bold tracking-widest uppercase mt-4 md:mt-0">
-                            Scroll to Explore
+                            {t('hero.scroll')}
                         </p>
                     </div>
                 </motion.div>
