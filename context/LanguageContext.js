@@ -6,43 +6,40 @@ import { translations } from '../lib/translations';
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-    const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('language');
+      if (saved) return saved;
 
-    useEffect(() => {
-        const savedLang = localStorage.getItem('language');
-        if (savedLang) {
-            setLanguage(savedLang);
-        } else {
-            // Detect browser language
-            const browserLang = navigator.language.split('-')[0];
-            if (browserLang === 'es') {
-                setLanguage('es');
-            }
-        }
-    }, []);
+      const browserLang = navigator.language.split('-')[0];
+      return browserLang;
+    }
 
-    const toggleLanguage = () => {
-        const newLang = language === 'en' ? 'es' : 'en';
-        setLanguage(newLang);
-        localStorage.setItem('language', newLang);
-    };
+    return 'en';
+  });
 
-    const t = (key) => {
-        const keys = key.split('.');
-        let value = translations[language];
-        for (const k of keys) {
-            value = value?.[k];
-        }
-        return value || key;
-    };
+  const toggleLanguage = () => {
+    const newLang = language === 'en' ? 'es' : 'en';
+    setLanguage(newLang);
+    localStorage.setItem('language', newLang);
+  };
 
-    return (
-        <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
-            {children}
-        </LanguageContext.Provider>
-    );
+  const t = (key) => {
+    const keys = key.split('.');
+    let value = translations[language];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLanguage() {
-    return useContext(LanguageContext);
+  return useContext(LanguageContext);
 }

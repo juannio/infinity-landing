@@ -78,73 +78,92 @@ const fragmentShader = `
 `;
 
 function FlowField() {
-    const mesh = useRef();
-    const uniforms = useMemo(
-        () => ({
-            uTime: { value: 0 },
-            uMouse: { value: new THREE.Vector2(0, 0) },
-        }),
-        []
-    );
+  const mesh = useRef();
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uMouse: { value: new THREE.Vector2(0, 0) },
+    }),
+    []
+  );
 
-    useFrame((state) => {
-        if (mesh.current) {
-            mesh.current.material.uniforms.uTime.value = state.clock.getElapsedTime();
-            mesh.current.material.uniforms.uMouse.value.lerp(
-                new THREE.Vector2(state.mouse.x, state.mouse.y),
-                0.1
-            );
-        }
-    });
+  useFrame((state) => {
+    if (mesh.current) {
+      mesh.current.material.uniforms.uTime.value = state.clock.getElapsedTime();
+      mesh.current.material.uniforms.uMouse.value.lerp(
+        new THREE.Vector2(state.mouse.x, state.mouse.y),
+        0.1
+      );
+    }
+  });
 
-    return (
-        <mesh ref={mesh} scale={[2, 2, 1]}>
-            <planeGeometry args={[10, 10]} />
-            <shaderMaterial
-                vertexShader={vertexShader}
-                fragmentShader={fragmentShader}
-                uniforms={uniforms}
-            />
-        </mesh>
-    );
+  return (
+    <mesh ref={mesh} scale={[2, 2, 1]}>
+      <planeGeometry args={[10, 10]} />
+      <shaderMaterial
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={uniforms}
+      />
+    </mesh>
+  );
 }
 
 export default function Hero() {
-    const { t } = useLanguage();
-    return (
-        <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
-            {/* 3D Background */}
-            <div className="absolute inset-0 z-0">
-                <Canvas camera={{ position: [0, 0, 1] }} gl={{ antialias: false }}>
-                    <FlowField />
-                    <EffectComposer>
-                        <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} intensity={0.8} />
-                        <Noise opacity={0.05} />
-                    </EffectComposer>
-                </Canvas>
+  const { t } = useLanguage();
+  return (
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
+      {/* 3D Background */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 1] }} gl={{ antialias: false }}>
+          <FlowField />
+          <EffectComposer>
+            <Bloom
+              luminanceThreshold={0.2}
+              luminanceSmoothing={0.9}
+              height={300}
+              intensity={0.8}
+            />
+            <Noise opacity={0.05} />
+          </EffectComposer>
+        </Canvas>
+      </div>
+      {/* Content */}
+      <div className="relative z-20 px-6 w-full max-w-7xl mx-auto pointer-events-none mix-blend-difference">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="flex flex-col items-center w-full gap-1">
+            <div className="flex text-center border rounded-full px-[clamp(2rem,6vw,4rem)] py-5 bg-[#112252]">
+              <h1 className="text-[clamp(1.0rem,5vw,2.4rem)] leading-[0.8] tracking-tighter text-white font-outfit select-none">
+                The
+              </h1>
             </div>
-
-            {/* Content */}
-            <div className="relative z-20 text-center px-6 w-full max-w-7xl mx-auto pointer-events-none mix-blend-difference">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                >
-                    <h1 className="text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-2 font-outfit select-none">
-                        {t('hero.title')}
-                    </h1>
-                    <div className="flex flex-col md:flex-row items-center justify-between w-full border-t border-white/20 pt-6 mt-6">
-                        <p className="text-sm md:text-base text-white-400 max-w-xs text-left font-mono">
-                            {t('hero.systemStatus')}<br />
-                            {t('hero.tagline')}
-                        </p>
-                        <p className="text-sm md:text-base text-white font-bold tracking-widest uppercase mt-4 md:mt-0">
-                            {t('hero.scroll')}
-                        </p>
-                    </div>
-                </motion.div>
+            <div className="flex text-center border rounded-full px-[clamp(2.5rem,7vw,10rem)] py-5 bg-[#6F15E6]">
+              <h1 className="text-[clamp(1.6rem,12vw,6rem)] leading-[0.8] tracking-tighter text-white font-outfit select-none">
+                {'<Technology>'}
+              </h1>
             </div>
-        </section>
-    );
+            <div className="flex text-center border rounded-full px-[clamp(1.5rem,6vw,3rem)] py-5 bg-[#000000]">
+              <h1 className="text-[clamp(1.3rem,9vw,5rem)] leading-[0.8] tracking-tighter text-white font-outfit select-none">
+                co.
+              </h1>
+            </div>
+            <div className="flex flex-col md:flex-row items-center justify-between w-full border-t border-white/20 pt-6 mt-6">
+              <p className="text-sm md:text-base text-white-400 max-w-xs text-left font-mono">
+                {t('hero.systemStatus')}
+                <br />
+                {t('hero.tagline')}
+              </p>
+              <p className="text-sm md:text-base text-white tracking-widest uppercase mt-4 md:mt-0">
+                {t('hero.scroll')}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

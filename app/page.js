@@ -6,14 +6,14 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
 export default function Home() {
-    return (
-        <main className="relative flex flex-col w-full overflow-hidden">
-            <Navbar />
-            <Hero />
-            <Services />
-            <WhyChoose />
-            <CTA />
-            <Footer />
-        </main>
-    );
+  return (
+    <main className="relative flex flex-col w-full overflow-hidden">
+      <Navbar />
+      <Hero />
+      <Services />
+      <WhyChoose />
+      <CTA />
+      <Footer />
+    </main>
+  );
 }
